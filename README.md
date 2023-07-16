@@ -1,5 +1,6 @@
 # IonicPokemon
 
+https://kendall2106.github.io/MediaTaster-Cliente/
 Demo en IONIC, usando un API de Pokemon
 
 Comandos:
