@@ -1,20 +1,52 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-segment [scrollable]="true" value="heart">
+    <ion-segment-button value="home">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>All</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="heart">
+      <ion-icon name="heart"></ion-icon>
+      <ion-label>Peliculas</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="pin">
+      <ion-icon name="pin"></ion-icon>
+      <ion-label>Series</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="star">
+      <ion-icon name="star"></ion-icon>
+      <ion-label>Anime</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="call">
+      <ion-icon name="call"></ion-icon>
+      <ion-label>Juegos</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="globe">
+      <ion-icon name="globe"></ion-icon>
+      <ion-label>Libros</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="basket">
+      <ion-icon name="basket"></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+
+  <ion-grid>
+    <ion-row >
+      <ion-col sizeMd="2" *ngFor="let character of characters">
+        <ion-card >
+          <ion-card-header>
+            <ion-img src="./assets/marvel.jpg"></ion-img>
+          </ion-card-header>
+          <ion-card-title> 
+            Avenger
+          </ion-card-title>
+          <ion-card-content>  
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>
