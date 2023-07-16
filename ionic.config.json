@@ -1,7 +1,5 @@
 {
-  "name": "media",
-  "integrations": {
-    "capacitor": {}
-  },
+  "name": "IONICDEMOV2",
+  "integrations": {},
   "type": "angular"
 }

@@ -1,0 +1,64 @@
+#container {
+  text-align: center;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+
+  color: #8c8c8c;
+
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+
+ion-content{
+--ion-background-color: #DC0A2F; 
+  }
+
+ion-card-title{
+--color: white;
+font-size: 30px;
+}
+
+
+
+ion-button {
+  --background: #3983f2;
+}
+
+ion-item {
+  color: white;
+}
+
+ion-item-divider{
+  color: #DC0A2F;
+}
+
+ion-icon{
+  padding-right: 5%;
+  color: white;
+}
+
+.iconLogin{
+  color: black;
+  padding: 0;
+  padding-left: 4%;
+}
+
+
