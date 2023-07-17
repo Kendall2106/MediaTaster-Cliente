@@ -1,6 +1,6 @@
 
-
-<ion-content [fullscreen]="true">
+<section>
+ <ion-grid>
   <ion-segment [scrollable]="true" value="heart" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="all" >
       <ion-icon name="home"></ion-icon>
@@ -30,21 +30,21 @@
       <ion-icon name="basket"></ion-icon>
     </ion-segment-button>
   </ion-segment>
+</ion-grid>
+</section>
 
-
-  <ion-content id="content">
+<ion-content>
     <ion-grid>
       <ion-row >
         <ion-col sizeMd="4" *ngFor="let d of data">
           <ion-card >
             <ion-img src="./assets/marvel.jpg"></ion-img>
             <ion-card-title> 
-              <div style="margin: 2%;">
+             
                 {{d.media_name}}
-              </div>
+              
             </ion-card-title>
             <ion-card-content >  
-              <ion-card-content>  
                 <div>
                   Fecha: {{d.date}}
                 </div>
@@ -61,14 +61,11 @@
                   Paginas: {{d.pages}} 
                 </div>
               </ion-card-content>
-            </ion-card-content>
-
           </ion-card>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-content>
   
-  
 
-</ion-content>
+
