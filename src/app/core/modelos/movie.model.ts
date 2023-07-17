@@ -1,6 +1,6 @@
 export interface Movie {
     id: any;
-    name: any;
+    media_name: any;
     score: any;
     type: any;
     date: any;

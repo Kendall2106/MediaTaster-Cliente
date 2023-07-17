@@ -2,13 +2,13 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
-import { Movie } from "../modelos/movie.model";
+import { Book } from "../modelos/book.model";
 
 @Injectable({
     providedIn: 'root'
   })
   
-  export class MovieService {
+  export class SeriesService {
     urlModulo: string = environment.urlAPI;
 
     constructor(private http: HttpClient) {
@@ -22,7 +22,7 @@ import { Movie } from "../modelos/movie.model";
     })
   };
 
-  loadMovie(): Observable<any[]>{
-    return this.http.get<any>(this.urlModulo+'listMovie/', this.httpOptions2);
+  loadSeries(): Observable<any[]>{
+    return this.http.get<any>(this.urlModulo+'listSerie/', this.httpOptions2);
   }
 }

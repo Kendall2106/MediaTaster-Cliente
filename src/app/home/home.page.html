@@ -1,28 +1,28 @@
 
 
 <ion-content [fullscreen]="true">
-  <ion-segment [scrollable]="true" value="heart">
-    <ion-segment-button value="home">
+  <ion-segment [scrollable]="true" value="heart" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="all" >
       <ion-icon name="home"></ion-icon>
       <ion-label>All</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="heart">
+    <ion-segment-button value="peliculas">
       <ion-icon name="heart"></ion-icon>
       <ion-label>Peliculas</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="pin">
+    <ion-segment-button value="series">
       <ion-icon name="pin"></ion-icon>
       <ion-label>Series</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="star">
+    <ion-segment-button value="anime">
       <ion-icon name="star"></ion-icon>
       <ion-label>Anime</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="call">
+    <ion-segment-button value="juegos">
       <ion-icon name="call"></ion-icon>
       <ion-label>Juegos</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="globe">
+    <ion-segment-button value="libros">
       <ion-icon name="globe"></ion-icon>
       <ion-label>Libros</ion-label>
     </ion-segment-button>
@@ -32,19 +32,43 @@
   </ion-segment>
 
 
-  <ion-grid>
-    <ion-row >
-      <ion-col sizeMd="2" *ngFor="let character of characters">
-        <ion-card >
-          <ion-img src="./assets/marvel.jpg"></ion-img>
-          <ion-card-title> 
-            Avenger
-          </ion-card-title>
-          <ion-card-content>  
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-content id="content">
+    <ion-grid>
+      <ion-row >
+        <ion-col sizeMd="4" *ngFor="let d of data">
+          <ion-card >
+            <ion-img src="./assets/marvel.jpg"></ion-img>
+            <ion-card-title> 
+              <div style="margin: 2%;">
+                {{d.media_name}}
+              </div>
+            </ion-card-title>
+            <ion-card-content >  
+              <ion-card-content>  
+                <div>
+                  Fecha: {{d.date}}
+                </div>
+                <div>
+                  Puntaje: {{d.score}}
+                </div>
+                <div *ngIf="selectedSegment === 'series' || selectedSegment === 'anime'">
+                  Temporada: {{d.Temp}} 
+                </div>
+                <div *ngIf="selectedSegment === 'juegos'">
+                  Horas: {{d.hours}}
+                </div>
+                <div *ngIf="selectedSegment === 'libros'">
+                  Paginas: {{d.pages}} 
+                </div>
+              </ion-card-content>
+            </ion-card-content>
+
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+  
+  
 
 </ion-content>
