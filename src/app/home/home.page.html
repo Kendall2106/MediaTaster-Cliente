@@ -7,33 +7,34 @@
 
 <section>
  <ion-grid>
-  <ion-segment [scrollable]="true" value="heart" (ionChange)="segmentChanged($event)">
+  <ion-segment [scrollable]="true" id="open-loading" value="heart" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="all" >
       <ion-icon name="home"></ion-icon>
-      <ion-label>All</ion-label>
+      <ion-label>Home</ion-label>
     </ion-segment-button>
     <ion-segment-button value="peliculas">
-      <ion-icon name="heart"></ion-icon>
+      <ion-icon name="videocam-outline"></ion-icon>
       <ion-label>Peliculas</ion-label>
     </ion-segment-button>
     <ion-segment-button value="series">
-      <ion-icon name="pin"></ion-icon>
+      <ion-icon name="aperture-outline"></ion-icon>
       <ion-label>Series</ion-label>
     </ion-segment-button>
     <ion-segment-button value="anime">
-      <ion-icon name="star"></ion-icon>
+      <ion-icon name="ribbon-outline"></ion-icon>
       <ion-label>Anime</ion-label>
     </ion-segment-button>
     <ion-segment-button value="juegos">
-      <ion-icon name="call"></ion-icon>
+      <ion-icon name="game-controller-outline"></ion-icon>
       <ion-label>Juegos</ion-label>
     </ion-segment-button>
     <ion-segment-button value="libros">
-      <ion-icon name="globe"></ion-icon>
+      <ion-icon name="book-outline"></ion-icon>
       <ion-label>Libros</ion-label>
     </ion-segment-button>
   </ion-segment>
 </ion-grid>
+<ion-loading class="custom-loading" trigger="open-loading" message="Loading..." [duration]="1500"></ion-loading>
 </section>
 
   <ion-content color="light">
@@ -45,7 +46,7 @@
         <ion-label>{{d.media_name}}<br>{{d.date}}
         </ion-label>
         <ion-label></ion-label>
-        <ion-label>{{d.score}} <ion-icon name="star"></ion-icon></ion-label>
+        <ion-label>{{d.score}} <ion-icon name="star" style="color: yellow;"></ion-icon></ion-label>
       <!--   <ion-label>Categoria: {{d.type_name}}
           <br>
           <div *ngIf="selectedSegment === 'series' || selectedSegment === 'anime'">
@@ -102,8 +103,7 @@
     </ion-modal>--> 
 
     
-
+   
 
   </ion-content>
-
 

@@ -81,18 +81,23 @@ export class HomePage implements OnInit{
     // Aquí puedes hacer lo que desees con el valor seleccionado
     switch (selectedValue) {
       case 'peliculas':
+        this.clear();
         this.loadMovie();
         break;
       case 'series':
+        this.clear();
         this.loadSerie();
         break;
       case 'anime':
+        this.clear();
         this.loadAnime();
         break;
       case 'juegos':
+        this.clear();
         this.loadGame();
         break;
       case 'libros':
+        this.clear();
         this.loadBook();
         break;
       default:
@@ -134,6 +139,9 @@ export class HomePage implements OnInit{
 
     await alert.present();
   }
+
+  darkMode = false;
+
 
 
 
