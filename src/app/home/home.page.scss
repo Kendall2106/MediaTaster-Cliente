@@ -50,3 +50,15 @@ ion-fab-button::part(native):hover::after {
 ion-fab-button::part(native):active::after {
   background-color: #87d361;
 }
+
+.block {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ion-modal {
+  --height: auto;
+}

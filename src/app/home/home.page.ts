@@ -8,6 +8,7 @@ import { async } from '@angular/core/testing';
 import { AnimeService } from '../core/servicios/anime.service';
 import { GameService } from '../core/servicios/game.service';
 import { SeriesService } from '../core/servicios/series.service';
+import { ActionSheetController, AlertController, IonicSafeString, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,7 @@ export class HomePage implements OnInit{
 
   selectedSegment = '';
 
-  constructor(private movieService: MovieService, private bookService: BookService, private animeService: AnimeService , private gameService: GameService, private serieService: SeriesService) {}
+  constructor(private alertController: AlertController, private movieService: MovieService, private bookService: BookService, private animeService: AnimeService , private gameService: GameService, private serieService: SeriesService, private actionSheetController: ActionSheetController) {}
 
   ngOnInit() {
 
@@ -29,20 +30,28 @@ export class HomePage implements OnInit{
 
   loadMovie(){
     this.movieService.loadMovie().subscribe((res: any) => {
-      this.data=res;
-      console.log(this.data);
+      this.dateChange(res);
+      this.data = res;
     });
   }
 
+  dateChange(res:any){
+    for (let index = 0; index < res.length; index++) {
+      const dateTemp = new Date(res[index].date); 
+      res[index].date = dateTemp.getDate()+'/'+(dateTemp.getMonth()+1)+'/'+dateTemp.getFullYear();
+    }
+  }
 
   loadBook(){
     this.bookService.loadBook().subscribe((res: any) => {
+      this.dateChange(res);
       this.data=res;
     });
   }
 
   loadGame(){
     this.gameService.loadGame().subscribe((res: any) => {
+      this.dateChange(res);
       this.data=res;
     });
   }
@@ -50,12 +59,14 @@ export class HomePage implements OnInit{
 
   loadAnime(){
     this.animeService.loadAnime().subscribe((res: any) => {
+      this.dateChange(res);
       this.data=res;
     });
   }
 
   loadSerie(){
     this.serieService.loadSeries().subscribe((res: any) => {
+      this.dateChange(res);
       this.data=res;
     });
   }
@@ -101,6 +112,30 @@ export class HomePage implements OnInit{
   clear(){
     this.data = [];
   }
+
+
+
+  async presentAlert(data: any, select:any) {
+    let men = '';
+    if(select=='series' || select == 'anime'){
+       men = 'Temporadas: '+data.Temp;
+    }else if(select=='juegos'){
+      men = 'Horas: '+data.hours;
+    }else if(select=='libros'){
+      men = 'Paginas: '+data.pages;
+    }
+    const alert = await this.alertController.create({
+      header: data.media_name,
+      subHeader: 'Categoria: '+ data.type_name,
+      message: men,
+      buttons: ['OK']
+    });
+    
+
+    await alert.present();
+  }
+
+
 
 }
 

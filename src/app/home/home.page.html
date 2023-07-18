@@ -38,13 +38,15 @@
 
   <ion-content color="light">
     <ion-list [inset]="true"  *ngFor="let d of data">
-      <ion-item>
+      <ion-item (click)="presentAlert(d,selectedSegment)">
         <ion-avatar slot="start">
           <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
         </ion-avatar>
         <ion-label>{{d.media_name}}<br>{{d.date}}
         </ion-label>
-        <ion-label>Categoria: {{d.type_name}}
+        <ion-label></ion-label>
+        <ion-label>{{d.score}} <ion-icon name="star"></ion-icon></ion-label>
+      <!--   <ion-label>Categoria: {{d.type_name}}
           <br>
           <div *ngIf="selectedSegment === 'series' || selectedSegment === 'anime'">
             Temporada: {{d.Temp}} 
@@ -55,7 +57,7 @@
           <div *ngIf="selectedSegment === 'libros'">
             Paginas: {{d.pages}} 
           </div>
-        </ion-label>
+        </ion-label>-->
 
       </ion-item>
     </ion-list>
@@ -77,5 +79,31 @@
       </ion-fab-list>
     </ion-fab>
 
+
+
+   <!--<ion-modal [isOpen]="isModalOpen">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Modal</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="setOpen(false)">Close</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni illum quidem recusandae ducimus quos
+            reprehenderit. Veniam, molestias quos, dolorum consequuntur nisi deserunt omnis id illo sit cum qui. Eaque,
+            dicta.
+          </p>
+        </ion-content>
+      </ng-template>
+    </ion-modal>--> 
+
+    
+
+
   </ion-content>
+
 

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { AlertController, IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
@@ -14,6 +14,9 @@ import { AreaComponent } from '../core/component/area/area.component';
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage, AreaComponent]
+  declarations: [HomePage, AreaComponent],
+  providers: [
+    AlertController
+  ]
 })
 export class HomePageModule {}
