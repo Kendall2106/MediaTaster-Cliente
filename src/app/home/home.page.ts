@@ -30,6 +30,7 @@ export class HomePage implements OnInit{
   loadMovie(){
     this.movieService.loadMovie().subscribe((res: any) => {
       this.data=res;
+      console.log(this.data);
     });
   }
 
@@ -84,9 +85,17 @@ export class HomePage implements OnInit{
         this.loadBook();
         break;
       default:
-        this.loadMovie();
+        this.clear();
         break;
     }
+  }
+
+  public results = [...this.data];
+
+  handleInput(event: any) {
+    const query = event.target.value.toLowerCase();
+    console.log(query);
+    this.data = this.data.filter((d) => d.media_name.toLowerCase().indexOf(query) > -1);
   }
 
   clear(){

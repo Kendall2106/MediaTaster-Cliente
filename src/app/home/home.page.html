@@ -1,3 +1,9 @@
+<section>
+  <ion-grid>
+    <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)"></ion-searchbar>
+  </ion-grid>
+</section>
+
 
 <section>
  <ion-grid>
@@ -26,46 +32,50 @@
       <ion-icon name="globe"></ion-icon>
       <ion-label>Libros</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="basket">
-      <ion-icon name="basket"></ion-icon>
-    </ion-segment-button>
   </ion-segment>
 </ion-grid>
 </section>
 
-<ion-content>
-    <ion-grid>
-      <ion-row >
-        <ion-col sizeMd="4" *ngFor="let d of data">
-          <ion-card >
-            <ion-img src="./assets/marvel.jpg"></ion-img>
-            <ion-card-title> 
-             
-                {{d.media_name}}
-              
-            </ion-card-title>
-            <ion-card-content >  
-                <div>
-                  Fecha: {{d.date}}
-                </div>
-                <div>
-                  Puntaje: {{d.score}}
-                </div>
-                <div *ngIf="selectedSegment === 'series' || selectedSegment === 'anime'">
-                  Temporada: {{d.Temp}} 
-                </div>
-                <div *ngIf="selectedSegment === 'juegos'">
-                  Horas: {{d.hours}}
-                </div>
-                <div *ngIf="selectedSegment === 'libros'">
-                  Paginas: {{d.pages}} 
-                </div>
-              </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-content>
-  
+  <ion-content color="light">
+    <ion-list [inset]="true"  *ngFor="let d of data">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        </ion-avatar>
+        <ion-label>{{d.media_name}}<br>{{d.date}}
+        </ion-label>
+        <ion-label>Categoria: {{d.type_name}}
+          <br>
+          <div *ngIf="selectedSegment === 'series' || selectedSegment === 'anime'">
+            Temporada: {{d.Temp}} 
+          </div>
+          <div *ngIf="selectedSegment === 'juegos'">
+            Horas: {{d.hours}}
+          </div>
+          <div *ngIf="selectedSegment === 'libros'">
+            Paginas: {{d.pages}} 
+          </div>
+        </ion-label>
 
+      </ion-item>
+    </ion-list>
+
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+      <ion-fab-button>
+        <ion-icon name="chevron-up-circle"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="top">
+        <ion-fab-button>
+          <ion-icon name="document"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button>
+          <ion-icon name="color-palette"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button>
+          <ion-icon name="globe"></ion-icon>
+        </ion-fab-button>
+      </ion-fab-list>
+    </ion-fab>
+
+  </ion-content>
 
