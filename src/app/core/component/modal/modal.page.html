@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>modal</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list>
+      <ion-item>
+        <ion-input type="text" placeholder="Nombre"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="date" placeholder="Fecha"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="number" placeholder="Puntaje:"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-select placeholder="Categoria">
+          <ion-select-option *ngFor="let t of type">{{t.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </ion-content>

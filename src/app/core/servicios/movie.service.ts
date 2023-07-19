@@ -29,4 +29,8 @@ import { Movie } from "../modelos/movie.model";
   loadMedia(): Observable<any[]>{
     return this.http.get<any>(this.urlModulo+'listMedia/', this.httpOptions2);
   }
+
+  loadTypeMedia(): Observable<any[]>{
+    return this.http.get<any>(this.urlModulo+'listTypeMedia/', this.httpOptions2);
+  }
 }

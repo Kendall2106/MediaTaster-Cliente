@@ -9,6 +9,7 @@ import { AnimeService } from '../core/servicios/anime.service';
 import { GameService } from '../core/servicios/game.service';
 import { SeriesService } from '../core/servicios/series.service';
 import { ActionSheetController, AlertController, IonicSafeString, ModalController } from '@ionic/angular';
+import { ModalComponent } from '../core/component/modal/modal.component';
 
 @Component({
   selector: 'app-home',
@@ -22,10 +23,11 @@ export class HomePage implements OnInit{
 
   selectedSegment = '';
 
-  constructor(private alertController: AlertController, private movieService: MovieService, private bookService: BookService, private animeService: AnimeService , private gameService: GameService, private serieService: SeriesService, private actionSheetController: ActionSheetController) {}
+  constructor(private modalController: ModalController, private alertController: AlertController, private movieService: MovieService, private bookService: BookService, private animeService: AnimeService , private gameService: GameService, private serieService: SeriesService, private actionSheetController: ActionSheetController) {}
 
   ngOnInit() {
-
+    this.clear();
+    this.loadMedia();
   }
 
   loadMovie(){
@@ -87,7 +89,7 @@ export class HomePage implements OnInit{
     this.selectedSegment = selectedValue;
     // Aquí puedes hacer lo que desees con el valor seleccionado
     switch (selectedValue) {
-      case 'home':
+      case 'all':
         this.clear();
         this.loadMedia();
         break;
@@ -112,7 +114,7 @@ export class HomePage implements OnInit{
         this.loadBook();
         break;
       default:
-        this.clear();
+       /* this.clear();*/
         break;
     }
   }
@@ -122,7 +124,7 @@ export class HomePage implements OnInit{
   handleInput(event: any) {
     const query = event.target.value.toLowerCase();
     console.log(query);
-    this.data = this.data.filter((d) => d.media_name.toLowerCase().indexOf(query) > -1);
+      this.data = this.data.filter((d) => d.media_name.toLowerCase().indexOf(query) > -1);
   }
 
   clear(){
@@ -151,10 +153,15 @@ export class HomePage implements OnInit{
     await alert.present();
   }
 
-  darkMode = false;
 
-
-
+  async abrirModal(/*player: any*/) {
+    console.log("abrirModal");
+    const modal = await this.modalController.create({
+      component: ModalComponent,
+      /*componentProps: { player: player, action: "update" },*/
+    });
+    await modal.present();
+  }
 
 }
 

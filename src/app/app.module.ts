@@ -9,10 +9,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomePage } from './home/home.page';
 import { FormsModule } from '@angular/forms';
 import { AreaComponent } from './core/component/area/area.component';
+import { ModalComponent } from './core/component/modal/modal.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent, ModalComponent
   ],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, FormsModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],

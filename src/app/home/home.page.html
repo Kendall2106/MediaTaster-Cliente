@@ -7,7 +7,7 @@
 
 <section>
  <ion-grid>
-  <ion-segment [scrollable]="true" id="open-loading" value="heart" (ionChange)="segmentChanged($event)">
+  <ion-segment [scrollable]="true" id="open-loading" value="all" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="all" >
       <ion-icon name="home"></ion-icon>
       <ion-label>Home</ion-label>
@@ -74,12 +74,11 @@
         <ion-fab-button>
           <ion-icon name="color-palette"></ion-icon>
         </ion-fab-button>
-        <ion-fab-button>
+        <ion-fab-button (click)="abrirModal()">
           <ion-icon name="globe"></ion-icon>
         </ion-fab-button>
       </ion-fab-list>
     </ion-fab>
-
 
 
    <!--<ion-modal [isOpen]="isModalOpen">
