@@ -35,6 +35,13 @@ export class HomePage implements OnInit{
     });
   }
 
+  loadMedia(){
+    this.movieService.loadMedia().subscribe((res: any) => {
+      this.dateChange(res);
+      this.data = res;
+    });
+  }
+
   dateChange(res:any){
     for (let index = 0; index < res.length; index++) {
       const dateTemp = new Date(res[index].date); 
@@ -80,6 +87,10 @@ export class HomePage implements OnInit{
     this.selectedSegment = selectedValue;
     // Aquí puedes hacer lo que desees con el valor seleccionado
     switch (selectedValue) {
+      case 'home':
+        this.clear();
+        this.loadMedia();
+        break;
       case 'peliculas':
         this.clear();
         this.loadMovie();
