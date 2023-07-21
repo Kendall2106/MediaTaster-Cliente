@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { AreaComponent } from './core/component/area/area.component';
 import { ModalComponent } from './core/component/modal/modal.component';
 
+
 @NgModule({
   declarations: [
     AppComponent, ModalComponent

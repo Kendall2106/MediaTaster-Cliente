@@ -1,6 +1,6 @@
 <section>
   <ion-grid>
-    <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)"></ion-searchbar>
+    <ion-searchbar animated="true" placeholder="Buscar" (ionInput)="handleInput($event)"></ion-searchbar>
   </ion-grid>
 </section>
 
@@ -38,15 +38,16 @@
 </section>
 
   <ion-content color="light">
-    <ion-list [inset]="true"  *ngFor="let d of data">
+    <ion-list [inset]="true"  *ngFor="let d of results">
       <ion-item (click)="presentAlert(d,selectedSegment)">
         <ion-avatar slot="start">
           <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
         </ion-avatar>
         <ion-label>{{d.media_name}}<br>{{d.date}}
         </ion-label>
-        <ion-label></ion-label>
-        <ion-label>{{d.score}} <ion-icon name="star" style="color: yellow;"></ion-icon></ion-label>
+        <ion-label >{{d.score}} <ion-icon name="star" style="color: yellow;"></ion-icon></ion-label>
+       
+        <ion-badge [ngStyle]="getBadgeColor(d.type_name)">{{d.type_name}}</ion-badge>
       <!--   <ion-label>Categoria: {{d.type_name}}
           <br>
           <div *ngIf="selectedSegment === 'series' || selectedSegment === 'anime'">
@@ -63,22 +64,13 @@
       </ion-item>
     </ion-list>
 
-    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+
+
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end" (click)="abrirModal()">
       <ion-fab-button>
-        <ion-icon name="chevron-up-circle"></ion-icon>
+        <ion-icon name="add"></ion-icon>
       </ion-fab-button>
-      <ion-fab-list side="top">
-        <ion-fab-button>
-          <ion-icon name="document"></ion-icon>
-        </ion-fab-button>
-        <ion-fab-button>
-          <ion-icon name="color-palette"></ion-icon>
-        </ion-fab-button>
-        <ion-fab-button (click)="abrirModal()">
-          <ion-icon name="globe"></ion-icon>
-        </ion-fab-button>
-      </ion-fab-list>
-    </ion-fab>
+    </ion-fab> 
 
 
    <!--<ion-modal [isOpen]="isModalOpen">

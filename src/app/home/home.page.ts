@@ -20,7 +20,7 @@ export class HomePage implements OnInit{
   data: any[] = [];
   movies: Movie[] = [];
   books: Book[]=[];
-
+  results: any[] = [];
   selectedSegment = '';
 
   constructor(private modalController: ModalController, private alertController: AlertController, private movieService: MovieService, private bookService: BookService, private animeService: AnimeService , private gameService: GameService, private serieService: SeriesService, private actionSheetController: ActionSheetController) {}
@@ -30,10 +30,12 @@ export class HomePage implements OnInit{
     this.loadMedia();
   }
 
+
   loadMovie(){
     this.movieService.loadMovie().subscribe((res: any) => {
       this.dateChange(res);
       this.data = res;
+      this.results = this.data;
     });
   }
 
@@ -41,6 +43,7 @@ export class HomePage implements OnInit{
     this.movieService.loadMedia().subscribe((res: any) => {
       this.dateChange(res);
       this.data = res;
+      this.results = this.data;
     });
   }
 
@@ -55,6 +58,7 @@ export class HomePage implements OnInit{
     this.bookService.loadBook().subscribe((res: any) => {
       this.dateChange(res);
       this.data=res;
+      this.results = this.data;
     });
   }
 
@@ -62,6 +66,7 @@ export class HomePage implements OnInit{
     this.gameService.loadGame().subscribe((res: any) => {
       this.dateChange(res);
       this.data=res;
+      this.results = this.data;
     });
   }
 
@@ -70,6 +75,7 @@ export class HomePage implements OnInit{
     this.animeService.loadAnime().subscribe((res: any) => {
       this.dateChange(res);
       this.data=res;
+      this.results = this.data;
     });
   }
 
@@ -77,6 +83,7 @@ export class HomePage implements OnInit{
     this.serieService.loadSeries().subscribe((res: any) => {
       this.dateChange(res);
       this.data=res;
+      this.results = this.data;
     });
   }
 
@@ -117,14 +124,16 @@ export class HomePage implements OnInit{
        /* this.clear();*/
         break;
     }
+    
   }
 
-  public results = [...this.data];
+  
+  
 
   handleInput(event: any) {
     const query = event.target.value.toLowerCase();
     console.log(query);
-      this.data = this.data.filter((d) => d.media_name.toLowerCase().indexOf(query) > -1);
+    this.results = this.data.filter((d) => d.media_name.toLowerCase().indexOf(query) > -1);
   }
 
   clear(){
@@ -161,6 +170,34 @@ export class HomePage implements OnInit{
       /*componentProps: { player: player, action: "update" },*/
     });
     await modal.present();
+  }
+
+  getBadgeColor(typeName: string): any {
+    let color ='';
+    switch (typeName) {
+      case 'Comedia':
+        color = 'red';
+        break;
+      case 'Terror':
+        color = 'green';
+        break;
+      case 'Romance':
+        color = 'pink';
+        break;
+      case 'Accion':
+        color = 'black';
+        break;
+      case 'Fantasia':
+        color = 'purple';
+        break;
+      case 'Ciencia Ficcion':
+        color = 'gray';
+        break;
+      default:
+        color = 'blue';
+        break;
+    }
+    return { 'background-color': color || 'default-color' };
   }
 
 }

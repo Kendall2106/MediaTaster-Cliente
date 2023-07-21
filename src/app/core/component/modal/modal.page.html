@@ -1,11 +1,38 @@
+<head>
+  <title>Ejemplo de CSS en el mismo HTML</title>
+  <style>
+ .rating {
+  font-size: 30px;
+}
+
+.star {
+  cursor: pointer;
+}
+
+/* Cambiar color cuando el ratón pasa sobre una estrella */
+.star:hover {
+  color: gold;
+}
+
+/* Estilo para las estrellas seleccionadas */
+.star.active {
+  color: gold;
+}
+  </style>
+</head>
+
 <ion-header>
-    <ion-toolbar>
-      <ion-title>modal</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Registrar</ion-title>
+  </ion-toolbar>
+</ion-header>
   
   <ion-content>
     <ion-list>
+      <ion-card>
       <ion-item>
         <ion-select placeholder="Media" [(ngModel)]="media">
           <ion-select-option>Peliculas</ion-select-option>
@@ -15,31 +42,44 @@
           <ion-select-option>Juegos</ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-item>
-        <ion-input type="text" placeholder="Nombre" [(ngModel)]="name"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input type="date" placeholder="Fecha" [(ngModel)]="date"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input type="number" placeholder="Puntaje:" [(ngModel)]="score"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-select placeholder="Categoria" [(ngModel)]="typeM">
-          <ion-select-option value="{{t.idType}}" *ngFor="let t of type">{{t.name}}</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-item *ngIf="media === 'Juegos'">
-        <ion-input type="number" placeholder="Horas:" [(ngModel)]="hours"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="media === 'Libros'">
-        <ion-input type="number" placeholder="Paginas:" [(ngModel)]="pages"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="media === 'Anime' || media === 'Series'">
-        <ion-input type="number" placeholder="Temporadas:" [(ngModel)]="temp"></ion-input>
-      </ion-item>
-      <ion-item >
-        <ion-button (click)="register()"> Registrar </ion-button>
-      </ion-item>
+    </ion-card>
+      <div *ngIf="media != ''">
+        <ion-card>
+          <ion-item>
+            <ion-input label="Nombre" label-placement="floating"  placeholder="" [(ngModel)]="name"></ion-input>
+          </ion-item>
+          <ion-item>
+           <ion-input type="date" label="Fecha" label-placement="floating"  placeholder="" [(ngModel)]="date"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-select placeholder="Categoria" [(ngModel)]="typeM">
+              <ion-select-option value="{{t.idType}}" *ngFor="let t of type">{{t.name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="media === 'Juegos'">
+            <ion-input type="number" label="Horas" label-placement="floating"  placeholder="" [(ngModel)]="hours"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="media === 'Libros'">
+            <ion-input type="number" label="Paginas" label-placement="floating"  placeholder="" [(ngModel)]="pages"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="media === 'Anime' || media === 'Series'">
+            <ion-input type="number" label="Temporadas" label-placement="floating"  placeholder="" [(ngModel)]="temp"></ion-input>
+          </ion-item>
+          <ion-item>
+            <!--<ion-input type="number" label="Puntaje" label-placement="floating"  placeholder="" [(ngModel)]="score"></ion-input>-->
+            <div class="rating">
+              <span class="star" *ngFor="let star of stars" (click)="rate(star)" [ngClass]="{'active': isStarActive(star)}">&#9733;</span>
+            </div>
+          </ion-item>
+          <ion-item >
+            <ion-button id="open-toast" slot="end" expand="block" fill="outline" (click)="register()"> Registrar </ion-button>
+          </ion-item>
+        </ion-card>
+        <ion-toast trigger="open-toast" message="{{answer}}" [duration]="2500" icon="warning"></ion-toast>
+      
+    </div>
     </ion-list>
   </ion-content>
+  
+  
