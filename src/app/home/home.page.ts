@@ -121,7 +121,6 @@ export class HomePage implements OnInit{
         this.loadBook();
         break;
       default:
-       /* this.clear();*/
         break;
     }
     
