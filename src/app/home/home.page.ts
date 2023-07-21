@@ -18,16 +18,21 @@ import { ModalComponent } from '../core/component/modal/modal.component';
 })
 export class HomePage implements OnInit{
   data: any[] = [];
+  type: any[] = [];
   movies: Movie[] = [];
   books: Book[]=[];
   results: any[] = [];
   selectedSegment = '';
+  regNum: number = 0;
+  typeM: number = 0;
+
 
   constructor(private modalController: ModalController, private alertController: AlertController, private movieService: MovieService, private bookService: BookService, private animeService: AnimeService , private gameService: GameService, private serieService: SeriesService, private actionSheetController: ActionSheetController) {}
 
   ngOnInit() {
     this.clear();
     this.loadMedia();
+    this.loadTypeMedia();
   }
 
 
@@ -36,6 +41,7 @@ export class HomePage implements OnInit{
       this.dateChange(res);
       this.data = res;
       this.results = this.data;
+      this.regNum = this.results.length;
     });
   }
 
@@ -44,6 +50,7 @@ export class HomePage implements OnInit{
       this.dateChange(res);
       this.data = res;
       this.results = this.data;
+      this.regNum = this.results.length;
     });
   }
 
@@ -59,6 +66,7 @@ export class HomePage implements OnInit{
       this.dateChange(res);
       this.data=res;
       this.results = this.data;
+      this.regNum = this.results.length;
     });
   }
 
@@ -67,6 +75,7 @@ export class HomePage implements OnInit{
       this.dateChange(res);
       this.data=res;
       this.results = this.data;
+      this.regNum = this.results.length;
     });
   }
 
@@ -76,6 +85,7 @@ export class HomePage implements OnInit{
       this.dateChange(res);
       this.data=res;
       this.results = this.data;
+      this.regNum = this.results.length;
     });
   }
 
@@ -84,6 +94,14 @@ export class HomePage implements OnInit{
       this.dateChange(res);
       this.data=res;
       this.results = this.data;
+      this.regNum = this.results.length;
+    });
+  }
+
+  loadTypeMedia(){
+    this.movieService.loadTypeMedia().subscribe((res: any) => {
+      //this.dateChange(res);
+      this.type = res;
     });
   }
 
@@ -94,7 +112,6 @@ export class HomePage implements OnInit{
   segmentChanged(event: any) {
     const selectedValue = event.detail.value;
     this.selectedSegment = selectedValue;
-    // Aquí puedes hacer lo que desees con el valor seleccionado
     switch (selectedValue) {
       case 'all':
         this.clear();
@@ -166,7 +183,6 @@ export class HomePage implements OnInit{
     console.log("abrirModal");
     const modal = await this.modalController.create({
       component: ModalComponent,
-      /*componentProps: { player: player, action: "update" },*/
     });
     await modal.present();
   }
@@ -197,6 +213,31 @@ export class HomePage implements OnInit{
         break;
     }
     return { 'background-color': color || 'default-color' };
+  }
+
+  filterType(event: any){
+    const query = event.target.value.toLowerCase();
+    console.log(query);
+   this.results = this.data.filter((d) => d.type_name.toLowerCase().indexOf(query) > -1);
+  }
+
+  filterScore(event: any) {
+    const query = event.target.value.toLowerCase();
+
+    this.results = this.data.filter((d) => {
+        const scoreAsString = d.score.toString().toLowerCase();
+        return scoreAsString.indexOf(query) > -1;
+    });
+}
+
+  filterYear(event: any){
+    const query = event.target.value.toLowerCase();
+    this.results = this.data.filter((d) => { 
+      const dateAsString = new Date(d.date).getFullYear().toString().toLowerCase();
+      return dateAsString.indexOf(query) > -1;
+      
+    });
+
   }
 
 }
