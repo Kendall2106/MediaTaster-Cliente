@@ -150,6 +150,7 @@ export class HomePage implements OnInit{
     const query = event.target.value.toLowerCase();
     console.log(query);
     this.results = this.data.filter((d) => d.media_name.toLowerCase().indexOf(query) > -1);
+    this.regNum = this.results.length;
   }
 
   clear(){
@@ -217,27 +218,41 @@ export class HomePage implements OnInit{
 
   filterType(event: any){
     const query = event.target.value.toLowerCase();
-    console.log(query);
-   this.results = this.data.filter((d) => d.type_name.toLowerCase().indexOf(query) > -1);
+    if(query==="todos"){
+      this.results =this.data;
+    }else{
+      this.results = this.data.filter((d) => d.type_name.toLowerCase().indexOf(query) > -1);
+      
+    }
+    this.regNum = this.results.length;
   }
 
   filterScore(event: any) {
     const query = event.target.value.toLowerCase();
+    if(query==="todos"){
+      this.results =this.data;
+    }else{
 
     this.results = this.data.filter((d) => {
         const scoreAsString = d.score.toString().toLowerCase();
         return scoreAsString.indexOf(query) > -1;
     });
+  }
+    this.regNum = this.results.length;
 }
 
   filterYear(event: any){
     const query = event.target.value.toLowerCase();
+    if(query==="todos"){
+      this.results =this.data;
+    }else{
     this.results = this.data.filter((d) => { 
       const dateAsString = new Date(d.date).getFullYear().toString().toLowerCase();
       return dateAsString.indexOf(query) > -1;
       
     });
-
+  }
+    this.regNum = this.results.length;
   }
 
 }

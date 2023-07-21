@@ -79,18 +79,10 @@
 
 
 
-    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end" (click)="abrirModal()">
       <ion-fab-button>
-        <ion-icon class="icon2" name="chevron-up-circle"></ion-icon>
+        <ion-icon class="icon2" name="add"></ion-icon>
       </ion-fab-button>
-      <ion-fab-list side="top">
-        <ion-fab-button (click)="abrirModal()">
-          <ion-icon class="icon2" name="add"></ion-icon>
-        </ion-fab-button>
-        <ion-fab-button>
-          <ion-icon class="icon2" name="home"></ion-icon>
-        </ion-fab-button>
-      </ion-fab-list>
     </ion-fab> 
 
 
@@ -131,6 +123,7 @@
       <ion-list>
         <ion-item>
           <ion-select  placeholder="Por anio" (ionChange)="filterYear($event)">
+            <ion-select-option>Todos</ion-select-option>
             <ion-select-option>2019</ion-select-option>
             <ion-select-option>2020</ion-select-option>
             <ion-select-option>2021</ion-select-option>
@@ -140,11 +133,13 @@
         </ion-item>
         <ion-item>
           <ion-select  placeholder="Por categoria" [(ngModel)]="typeM" (ionChange)="filterType($event)">
+            <ion-select-option>Todos</ion-select-option>
             <ion-select-option *ngFor="let t of type">{{t.name}}</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>
           <ion-select   placeholder="Por Puntaje" (ionChange)="filterScore($event)">
+            <ion-select-option>Todos</ion-select-option>
             <ion-select-option>1</ion-select-option>
             <ion-select-option>2</ion-select-option>
             <ion-select-option>3</ion-select-option>
