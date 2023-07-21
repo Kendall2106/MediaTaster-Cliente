@@ -37,12 +37,26 @@
 <ion-loading class="custom-loading" trigger="open-loading" message="Loading..." [duration]="1500"></ion-loading>
 </section>
 
+<section class="sectionNew">
+  <div id="main-content">
+    <ion-item class="filtros">
+      <ion-label> {{regNum}} resultados</ion-label>
+      <ion-menu-toggle>
+        <ion-icon size="large" name="filter-outline"></ion-icon>
+      </ion-menu-toggle>
+    </ion-item>
+</div>
+</section>
+
+
+
+
   <ion-content class="content-prin">
     <ion-list [inset]="true"  *ngFor="let d of results">
       <ion-item (click)="presentAlert(d,selectedSegment)">
-        <ion-avatar slot="start">
+       <!-- <ion-avatar slot="start">
           <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-        </ion-avatar>
+        </ion-avatar>-->
         <ion-label>{{d.media_name}}<br>{{d.date}}</ion-label>
         <ion-label slot="end">{{d.score}} <ion-icon name="star" style="color: gold;"></ion-icon></ion-label>
         <ion-badge [ngStyle]="getBadgeColor(d.type_name)">{{d.type_name}}</ion-badge>
@@ -102,8 +116,45 @@
       </ng-template>
     </ion-modal>--> 
 
-    
-   
+
+
 
   </ion-content>
+
+  <ion-menu side="end" contentId="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Filtros</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-list>
+        <ion-item>
+          <ion-select  placeholder="Por anio" (ionChange)="filterYear($event)">
+            <ion-select-option>2019</ion-select-option>
+            <ion-select-option>2020</ion-select-option>
+            <ion-select-option>2021</ion-select-option>
+            <ion-select-option>2022</ion-select-option>
+            <ion-select-option>2023</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-select  placeholder="Por categoria" [(ngModel)]="typeM" (ionChange)="filterType($event)">
+            <ion-select-option *ngFor="let t of type">{{t.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-select   placeholder="Por Puntaje" (ionChange)="filterScore($event)">
+            <ion-select-option>1</ion-select-option>
+            <ion-select-option>2</ion-select-option>
+            <ion-select-option>3</ion-select-option>
+            <ion-select-option>4</ion-select-option>
+            <ion-select-option>5</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  
+
 
