@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  urlAPI: "https://mediataster-backend.up.railway.app/"
+  urlAPI: "http://localhost:3000/"
 };
 
 /*

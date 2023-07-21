@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { Book } from "../modelos/book.model";
+import { Utils } from "../utilidades/util";
 
 @Injectable({
     providedIn: 'root'
@@ -24,5 +25,10 @@ import { Book } from "../modelos/book.model";
 
   loadSeries(): Observable<any[]>{
     return this.http.get<any>(this.urlModulo+'listSerie/', this.httpOptions2);
+  }
+
+  registerSerie(data: any): Observable<any[]> {
+    return this.http.post<any[]>(this.urlModulo + "registerSerie", Utils.getFormData(data), this.httpOptions2
+    );
   }
 }

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
+import { Utils } from "../utilidades/util";
 
 @Injectable({
     providedIn: 'root'
@@ -23,5 +24,10 @@ import { environment } from "src/environments/environment";
 
   loadAnime(): Observable<any[]>{
     return this.http.get<any>(this.urlModulo+'listAnime/', this.httpOptions2);
+  }
+
+  registerAnime(data: any): Observable<any[]> {
+    return this.http.post<any[]>(this.urlModulo + "registerAnime", Utils.getFormData(data), this.httpOptions2
+    );
   }
 }

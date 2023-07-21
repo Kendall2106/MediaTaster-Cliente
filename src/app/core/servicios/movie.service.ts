@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { Movie } from "../modelos/movie.model";
+import { Utils } from "../utilidades/util";
 
 @Injectable({
     providedIn: 'root'
@@ -15,12 +16,23 @@ import { Movie } from "../modelos/movie.model";
     console.log('Servicio HTTP');
   }
 
+  httpOptions1 = {
+    headers: new HttpHeaders({
+      "mimeType": "multipart/form-data",
+      "Access-Control-Allow-Origin": "*"
+    }),
+    //withCredentials: true,
+    responseType: 'text' as 'json'
+  };
+
   httpOptions2 = {
     headers: new HttpHeaders({
       "mimeType": "multipart/form-data",
       "Access-Control-Allow-Origin": "*"
     })
   };
+
+
 
   loadMovie(): Observable<any[]>{
     return this.http.get<any>(this.urlModulo+'listMovie/', this.httpOptions2);
@@ -32,5 +44,10 @@ import { Movie } from "../modelos/movie.model";
 
   loadTypeMedia(): Observable<any[]>{
     return this.http.get<any>(this.urlModulo+'listTypeMedia/', this.httpOptions2);
+  }
+
+  registerMovie(data: any): Observable<any[]> {
+    return this.http.post<any[]>(this.urlModulo + "registerMovie", Utils.getFormData(data), this.httpOptions2
+    );
   }
 }
