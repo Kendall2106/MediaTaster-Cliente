@@ -175,16 +175,16 @@ export class HomePage implements OnInit{
     let color ='';
     switch (typeName) {
       case 'Comedia':
-        color = 'red';
+        color = 'orange';
         break;
       case 'Terror':
-        color = 'green';
+        color = 'black';
         break;
       case 'Romance':
-        color = 'pink';
+        color = 'red';
         break;
       case 'Accion':
-        color = 'black';
+        color = 'green';
         break;
       case 'Fantasia':
         color = 'purple';

@@ -1,11 +1,11 @@
-<section>
+<section class="sectionNew">
   <ion-grid>
-    <ion-searchbar animated="true" placeholder="Buscar" (ionInput)="handleInput($event)"></ion-searchbar>
+    <ion-searchbar class="color-primary" animated="true" placeholder="Buscar" (ionInput)="handleInput($event)"></ion-searchbar>
   </ion-grid>
 </section>
 
 
-<section>
+<section class="sectionNew">
  <ion-grid>
   <ion-segment [scrollable]="true" id="open-loading" value="all" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="all" >
@@ -37,17 +37,16 @@
 <ion-loading class="custom-loading" trigger="open-loading" message="Loading..." [duration]="1500"></ion-loading>
 </section>
 
-  <ion-content color="light">
+  <ion-content class="content-prin">
     <ion-list [inset]="true"  *ngFor="let d of results">
       <ion-item (click)="presentAlert(d,selectedSegment)">
         <ion-avatar slot="start">
           <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
         </ion-avatar>
-        <ion-label>{{d.media_name}}<br>{{d.date}}
-        </ion-label>
-        <ion-label >{{d.score}} <ion-icon name="star" style="color: yellow;"></ion-icon></ion-label>
-       
+        <ion-label>{{d.media_name}}<br>{{d.date}}</ion-label>
+        <ion-label slot="end">{{d.score}} <ion-icon name="star" style="color: gold;"></ion-icon></ion-label>
         <ion-badge [ngStyle]="getBadgeColor(d.type_name)">{{d.type_name}}</ion-badge>
+        
       <!--   <ion-label>Categoria: {{d.type_name}}
           <br>
           <div *ngIf="selectedSegment === 'series' || selectedSegment === 'anime'">
@@ -66,11 +65,21 @@
 
 
 
-    <ion-fab slot="fixed" vertical="bottom" horizontal="end" (click)="abrirModal()">
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
       <ion-fab-button>
-        <ion-icon name="add"></ion-icon>
+        <ion-icon class="icon2" name="chevron-up-circle"></ion-icon>
       </ion-fab-button>
+      <ion-fab-list side="top">
+        <ion-fab-button (click)="abrirModal()">
+          <ion-icon class="icon2" name="add"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button>
+          <ion-icon class="icon2" name="home"></ion-icon>
+        </ion-fab-button>
+      </ion-fab-list>
     </ion-fab> 
+
+
 
 
    <!--<ion-modal [isOpen]="isModalOpen">

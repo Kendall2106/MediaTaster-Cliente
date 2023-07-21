@@ -5,6 +5,7 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
+  
 }
 
 #container strong {
@@ -36,18 +37,18 @@ ion-avatar {
 }
 
 ion-fab-button::part(native) {
-  background-color: #b7f399;
+  background-color: rgb(176, 175, 175);
   border-radius: 15px;
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
   color: black;
 }
 
 ion-fab-button::part(native):hover::after {
-  background-color: #a3e681;
+  background-color: rgb(176, 175, 175);;
 }
 
 ion-fab-button::part(native):active::after {
-  background-color: #87d361;
+  background-color: rgb(176, 175, 175);;
 }
 
 .block {
@@ -60,4 +61,45 @@ ion-fab-button::part(native):active::after {
 
 ion-modal {
   --height: auto;
+}
+
+.content-prin{
+  
+  --background: linear-gradient(to right, #000, #334e65);
+
+}
+
+.sectionNew{
+   background: linear-gradient(to right, #000, #334e65);
+ 
+ }
+
+ion-list{
+  background-color: #1A2936;
+}
+
+ion-item{
+  --background: #1A2936;
+  color: white;
+}
+
+ion-label{
+  color: white;
+}
+
+ion-icon{
+  color: white;
+}
+
+
+.icon2{
+  color: black;
+}
+
+ion-segment-button {
+  --indicator-color: #fff;
+}
+
+ion-segment.segment-scrollable::-webkit-scrollbar {
+  display: none; /* Ocultar la barra de desplazamiento en navegadores basados en WebKit (Chrome, Safari, etc.) */
 }
