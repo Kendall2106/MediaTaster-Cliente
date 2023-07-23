@@ -6,6 +6,7 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { AreaComponent } from '../core/component/area/area.component';
+import { AlertaComponent } from '../core/component/alerta/alerta.component';
 
 @NgModule({
   imports: [

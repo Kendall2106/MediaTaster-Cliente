@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MovieService } from '../core/servicios/movie.service';
 import { Movie } from '../core/modelos/movie.model';
 import { BookService } from '../core/servicios/book.service';
@@ -10,6 +10,7 @@ import { GameService } from '../core/servicios/game.service';
 import { SeriesService } from '../core/servicios/series.service';
 import { ActionSheetController, AlertController, IonicSafeString, ModalController } from '@ionic/angular';
 import { ModalComponent } from '../core/component/modal/modal.component';
+import { AlertaComponent } from '../core/component/alerta/alerta.component';
 
 @Component({
   selector: 'app-home',
@@ -25,9 +26,14 @@ export class HomePage implements OnInit{
   selectedSegment = '';
   regNum: number = 0;
   typeM: number = 0;
+  defaultValue: String = 'Todos';
+  miSelectValue: String = this.defaultValue;
+  miSelectValue2: String = this.defaultValue;
+  miSelectValue3: String = this.defaultValue;
 
+  constructor(private modalController: ModalController, private alertController: AlertController, private movieService: MovieService, private bookService: BookService, private animeService: AnimeService , private gameService: GameService, private serieService: SeriesService, private actionSheetController: ActionSheetController) {
 
-  constructor(private modalController: ModalController, private alertController: AlertController, private movieService: MovieService, private bookService: BookService, private animeService: AnimeService , private gameService: GameService, private serieService: SeriesService, private actionSheetController: ActionSheetController) {}
+  }
 
   ngOnInit() {
     this.clear();
@@ -54,12 +60,7 @@ export class HomePage implements OnInit{
     });
   }
 
-  dateChange(res:any){
-    for (let index = 0; index < res.length; index++) {
-      const dateTemp = new Date(res[index].date); 
-      res[index].date = dateTemp.getDate()+'/'+(dateTemp.getMonth()+1)+'/'+dateTemp.getFullYear();
-    }
-  }
+  
 
   loadBook(){
     this.bookService.loadBook().subscribe((res: any) => {
@@ -103,6 +104,13 @@ export class HomePage implements OnInit{
       //this.dateChange(res);
       this.type = res;
     });
+  }
+
+  dateChange(res:any){
+    for (let index = 0; index < res.length; index++) {
+      const dateTemp = new Date(res[index].date); 
+      res[index].date = (dateTemp.getDate()+1)+'/'+(dateTemp.getMonth()+1)+'/'+dateTemp.getFullYear();
+    }
   }
 
   refrescar(){
@@ -221,7 +229,7 @@ export class HomePage implements OnInit{
     if(query==="todos"){
       this.results =this.data;
     }else{
-      this.results = this.data.filter((d) => d.type_name.toLowerCase().indexOf(query) > -1);
+      this.results = this.results.filter((d) => d.type_name.toLowerCase().indexOf(query) > -1);
       
     }
     this.regNum = this.results.length;
@@ -232,8 +240,7 @@ export class HomePage implements OnInit{
     if(query==="todos"){
       this.results =this.data;
     }else{
-
-    this.results = this.data.filter((d) => {
+    this.results = this.results.filter((d) => {
         const scoreAsString = d.score.toString().toLowerCase();
         return scoreAsString.indexOf(query) > -1;
     });
@@ -246,7 +253,7 @@ export class HomePage implements OnInit{
     if(query==="todos"){
       this.results =this.data;
     }else{
-    this.results = this.data.filter((d) => { 
+    this.results = this.results.filter((d) => { 
       const dateAsString = new Date(d.date).getFullYear().toString().toLowerCase();
       return dateAsString.indexOf(query) > -1;
       
@@ -254,6 +261,22 @@ export class HomePage implements OnInit{
   }
     this.regNum = this.results.length;
   }
+
+  restaurarSelect() {
+    // Restaurar el valor del select al valor predeterminado
+    this.miSelectValue = this.defaultValue;
+    this.miSelectValue2 = this.defaultValue;
+    this.miSelectValue3 = this.defaultValue;
+  }
+
+  deleteFilter(){
+    this.results =this.data;
+    this.regNum = this.results.length;
+    this.restaurarSelect();
+    AlertaComponent.prototype.notificar('hola');
+  }
+
+
 
 }
 

@@ -7,7 +7,7 @@
 
 <section class="sectionNew">
  <ion-grid>
-  <ion-segment [scrollable]="true" id="open-loading" value="all" (ionChange)="segmentChanged($event)">
+  <ion-segment [scrollable]="true" id="open-loading" value="all" (ionChange)="segmentChanged($event)" (click)="deleteFilter()">
     <ion-segment-button value="all" >
       <ion-icon name="home"></ion-icon>
       <ion-label>Home</ion-label>
@@ -122,8 +122,9 @@
     <ion-content class="ion-padding">
       <ion-list>
         <ion-item>
-          <ion-select  placeholder="Por anio" (ionChange)="filterYear($event)">
-            <ion-select-option>Todos</ion-select-option>
+          <ion-label class="labelFiltros">Por anio</ion-label>
+          <ion-select [(ngModel)]="miSelectValue" (ionChange)="filterYear($event)">
+            <ion-select-option value="Todos">Todos</ion-select-option>
             <ion-select-option>2019</ion-select-option>
             <ion-select-option>2020</ion-select-option>
             <ion-select-option>2021</ion-select-option>
@@ -132,14 +133,16 @@
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-select  placeholder="Por categoria" [(ngModel)]="typeM" (ionChange)="filterType($event)">
-            <ion-select-option>Todos</ion-select-option>
+          <ion-label class="labelFiltros">Por categoria</ion-label>
+          <ion-select  [(ngModel)]="miSelectValue2"  (ionChange)="filterType($event)">
+            <ion-select-option value="Todos">Todos</ion-select-option>
             <ion-select-option *ngFor="let t of type">{{t.name}}</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-select   placeholder="Por Puntaje" (ionChange)="filterScore($event)">
-            <ion-select-option>Todos</ion-select-option>
+          <ion-label class="labelFiltros">Por puntaje</ion-label>
+          <ion-select  [(ngModel)]="miSelectValue3"  (ionChange)="filterScore($event)">
+            <ion-select-option value="Todos">Todos</ion-select-option>
             <ion-select-option>1</ion-select-option>
             <ion-select-option>2</ion-select-option>
             <ion-select-option>3</ion-select-option>
@@ -147,9 +150,14 @@
             <ion-select-option>5</ion-select-option>
           </ion-select>
         </ion-item>
+        <ion-item>
+          <ion-button expand="block" fill="outline" (click)="deleteFilter()">BORRAR TODO</ion-button>
+        </ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>
+
+ 
   
 
 
