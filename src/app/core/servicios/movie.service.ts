@@ -50,4 +50,9 @@ import { Utils } from "../utilidades/util";
     return this.http.post<any[]>(this.urlModulo + "registerMovie", Utils.getFormData(data), this.httpOptions2
     );
   }
+
+  deleteMovie(data: any): Observable<any[]> {
+    return this.http.post<any[]>(this.urlModulo + "deleteMovie", Utils.getFormData(data), this.httpOptions2
+    );
+  }
 }

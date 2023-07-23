@@ -20,13 +20,15 @@ import { AlertaComponent } from '../core/component/alerta/alerta.component';
 export class HomePage implements OnInit{
   data: any[] = [];
   type: any[] = [];
+  years: any[] = [];
   movies: Movie[] = [];
   books: Book[]=[];
   results: any[] = [];
-  selectedSegment = '';
+  selectedSegment = 'all';
   regNum: number = 0;
   typeM: number = 0;
   defaultValue: String = 'Todos';
+  prevYear: number = 0;
   miSelectValue: String = this.defaultValue;
   miSelectValue2: String = this.defaultValue;
   miSelectValue3: String = this.defaultValue;
@@ -37,7 +39,7 @@ export class HomePage implements OnInit{
 
   ngOnInit() {
     this.clear();
-    this.loadMedia();
+    /*this.loadMedia();*/
     this.loadTypeMedia();
   }
 
@@ -123,7 +125,7 @@ export class HomePage implements OnInit{
     switch (selectedValue) {
       case 'all':
         this.clear();
-        this.loadMedia();
+       /* this.loadMedia();*/
         break;
       case 'peliculas':
         this.clear();
@@ -151,7 +153,13 @@ export class HomePage implements OnInit{
     
   }
 
-  
+  sacarAnio(dataYear: any){
+    let year: any = dataYear[0].date;
+    for (let index = 0; index < dataYear.length; index++) {
+      
+      
+    }
+  }
   
 
   handleInput(event: any) {
@@ -163,6 +171,8 @@ export class HomePage implements OnInit{
 
   clear(){
     this.data = [];
+    this.results = [];
+    this.regNum = this.results.length;
   }
 
 
@@ -176,7 +186,7 @@ export class HomePage implements OnInit{
     }else if(select=='libros'){
       men = 'Paginas: '+data.pages;
     }
-    const alert = await this.alertController.create({
+   /* const alert = await this.alertController.create({
       header: data.media_name,
       subHeader: 'Categoria: '+ data.type_name,
       message: men,
@@ -184,10 +194,27 @@ export class HomePage implements OnInit{
     });
     
 
-    await alert.present();
+    await alert.present();*/
+
+
+    console.log('wat '+data.idAnime)
+    const modal = await this.modalController.create({
+      component: AlertaComponent,
+      componentProps: {
+        title: data.media_name,
+        category: data.type_name,
+        message: men,
+        id: data.id,
+        seleccion: select
+        // Aquí puedes agregar más props y sus valores
+      },
+      mode: 'ios'
+    });
+    modal.style.cssText = '--max-width: 80%; --height:40%';
+    await modal.present();
   }
 
-
+  
   async abrirModal(/*player: any*/) {
     console.log("abrirModal");
     const modal = await this.modalController.create({
@@ -269,11 +296,11 @@ export class HomePage implements OnInit{
     this.miSelectValue3 = this.defaultValue;
   }
 
-  deleteFilter(){
+  async deleteFilter(){
     this.results =this.data;
     this.regNum = this.results.length;
     this.restaurarSelect();
-    AlertaComponent.prototype.notificar('hola');
+    //AlertaComponent.prototype.notificar('hola');
   }
 
 

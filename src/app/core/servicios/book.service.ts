@@ -31,4 +31,9 @@ import { Utils } from "../utilidades/util";
     return this.http.post<any[]>(this.urlModulo + "registerBook", Utils.getFormData(data), this.httpOptions2
     );
   }
+
+  deleteBook(data: any): Observable<any[]> {
+    return this.http.post<any[]>(this.urlModulo + "deleteBook", Utils.getFormData(data), this.httpOptions2
+    );
+  }
 }

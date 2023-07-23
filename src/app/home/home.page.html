@@ -37,7 +37,7 @@
 <ion-loading class="custom-loading" trigger="open-loading" message="Loading..." [duration]="1500"></ion-loading>
 </section>
 
-<section class="sectionNew">
+<section class="sectionNew" >
   <div id="main-content">
     <ion-item class="filtros">
       <ion-label> {{regNum}} resultados</ion-label>
@@ -48,36 +48,21 @@
 </div>
 </section>
 
-
-
-
   <ion-content class="content-prin">
+    <ion-card class="content-prin" *ngIf="selectedSegment === 'all'">
+      
+    </ion-card>
+
+    
     <ion-list [inset]="true"  *ngFor="let d of results">
       <ion-item (click)="presentAlert(d,selectedSegment)">
-       <!-- <ion-avatar slot="start">
-          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-        </ion-avatar>-->
         <ion-label>{{d.media_name}}<br>{{d.date}}</ion-label>
         <ion-label slot="end">{{d.score}} <ion-icon name="star" style="color: gold;"></ion-icon></ion-label>
         <ion-badge [ngStyle]="getBadgeColor(d.type_name)">{{d.type_name}}</ion-badge>
-        
-      <!--   <ion-label>Categoria: {{d.type_name}}
-          <br>
-          <div *ngIf="selectedSegment === 'series' || selectedSegment === 'anime'">
-            Temporada: {{d.Temp}} 
-          </div>
-          <div *ngIf="selectedSegment === 'juegos'">
-            Horas: {{d.hours}}
-          </div>
-          <div *ngIf="selectedSegment === 'libros'">
-            Paginas: {{d.pages}} 
-          </div>
-        </ion-label>-->
-
       </ion-item>
     </ion-list>
 
-
+    
 
     <ion-fab slot="fixed" vertical="bottom" horizontal="end" (click)="abrirModal()">
       <ion-fab-button>
@@ -130,6 +115,7 @@
             <ion-select-option>2021</ion-select-option>
             <ion-select-option>2022</ion-select-option>
             <ion-select-option>2023</ion-select-option>
+            <ion-select-option>2024</ion-select-option>           
           </ion-select>
         </ion-item>
         <ion-item>

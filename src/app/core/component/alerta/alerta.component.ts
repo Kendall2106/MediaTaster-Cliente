@@ -1,4 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { BookService } from '../../servicios/book.service';
+import { AnimeService } from '../../servicios/anime.service';
+import { GameService } from '../../servicios/game.service';
+import { SeriesService } from '../../servicios/series.service';
+import { MovieService } from '../../servicios/movie.service';
 
 declare let $: any;
 
@@ -7,21 +13,70 @@ declare let $: any;
   templateUrl: './alerta.component.html',
   styleUrls: ['./alerta.component.scss'],
 })
-export class AlertaComponent implements OnInit {
+export class AlertaComponent{
 
-  @Input() mensaje:String = "";
-  constructor(){
+  @Input() title: string ="";
+  @Input() category: string ="";
+  @Input() message: string ="";
+  @Input() id: number= 0;
+  @Input() seleccion: string ="";
+
+  constructor(private modalController: ModalController,private movieService: MovieService, private bookService: BookService, private animeService: AnimeService , private gameService: GameService, private serieService: SeriesService){
 
   }
 
-  ngOnInit() {
-    this.notificar('Hola, este es un ejemplo de notificación');
+  closeModal() {
+    this.modalController.dismiss();
   }
 
-  notificar(info:String){
+  deleteMovie(){
+    this.movieService.deleteMovie({id: this.id}).subscribe((res: any) => {
+      console.log(res);
+    });
+  }
+
+  deleteAnime(){
+    this.animeService.deleteAnime({id: this.id}).subscribe((res: any) => {
+      console.log(res);
+    });
+  }
+  deleteSerie(){
+    console.log('mmmm ' + this.id);
+    this.serieService.deleteSerie({id: this.id}).subscribe((res: any) => {
+      console.log(res);
+    });
+  }
+  deleteGame(){
+    this.gameService.deleteGame({id: this.id}).subscribe((res: any) => {
+      console.log(res);
+    });
+  }
+  deleteBook(){
+    this.bookService.deleteBook({id: this.id}).subscribe((res: any) => {
+      console.log(res);
+    });
+  }
+
+  async deleteMedia() {
+    if(this.seleccion=='series'){
+      this.deleteSerie();
+   }else if(this.seleccion=='juegos'){
+    this.deleteGame();
+   }else if(this.seleccion=='libros'){
+     this.deleteBook();
+   }else if(this.seleccion=='anime'){
+    this.deleteAnime();
+   }else if(this.seleccion=='peliculas'){
+    this.deleteMovie();
+   }
+   this.closeModal();
+  }
+
+
+  /*notificar(info:String){
     this.mensaje = info;
     console.log(this.mensaje);
     $('#modal-notificar').modal('show');
-  }
+  }*/
 
 }

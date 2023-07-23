@@ -31,4 +31,10 @@ import { Utils } from "../utilidades/util";
     return this.http.post<any[]>(this.urlModulo + "registerSerie", Utils.getFormData(data), this.httpOptions2
     );
   }
+
+  deleteSerie(data: any): Observable<any[]> {
+    console.log("aja "+data.id);
+    return this.http.post<any[]>(this.urlModulo + "deleteSerie", Utils.getFormData(data), this.httpOptions2
+    );
+  }
 }

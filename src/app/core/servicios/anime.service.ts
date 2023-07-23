@@ -30,4 +30,9 @@ import { Utils } from "../utilidades/util";
     return this.http.post<any[]>(this.urlModulo + "registerAnime", Utils.getFormData(data), this.httpOptions2
     );
   }
+
+  deleteAnime(data: any): Observable<any[]> {
+    return this.http.post<any[]>(this.urlModulo + "deleteAnime", Utils.getFormData(data), this.httpOptions2
+    );
+  }
 }

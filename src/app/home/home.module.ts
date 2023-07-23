@@ -15,7 +15,7 @@ import { AlertaComponent } from '../core/component/alerta/alerta.component';
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage, AreaComponent],
+  declarations: [HomePage, AreaComponent, AlertaComponent],
   providers: [
     AlertController
   ]

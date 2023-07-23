@@ -31,4 +31,11 @@ import { Utils } from "../utilidades/util";
     return this.http.post<any[]>(this.urlModulo + "registerGame", Utils.getFormData(data), this.httpOptions2
     );
   }
+
+  deleteGame(data: any): Observable<any[]> {
+    return this.http.post<any[]>(this.urlModulo + "deleteGame", Utils.getFormData(data), this.httpOptions2
+    );
+  }
+
+  
 }
