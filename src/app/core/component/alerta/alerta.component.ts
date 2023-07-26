@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ActionSheetController, ModalController } from '@ionic/angular';
 import { BookService } from '../../servicios/book.service';
 import { AnimeService } from '../../servicios/anime.service';
 import { GameService } from '../../servicios/game.service';
@@ -21,7 +21,7 @@ export class AlertaComponent{
   @Input() id: number= 0;
   @Input() seleccion: string ="";
 
-  constructor(private modalController: ModalController,private movieService: MovieService, private bookService: BookService, private animeService: AnimeService , private gameService: GameService, private serieService: SeriesService){
+  constructor(private actionSheetCtrl: ActionSheetController,private modalController: ModalController,private movieService: MovieService, private bookService: BookService, private animeService: AnimeService , private gameService: GameService, private serieService: SeriesService){
 
   }
 
@@ -69,9 +69,26 @@ export class AlertaComponent{
    }else if(this.seleccion=='peliculas'){
     this.deleteMovie();
    }
-   this.closeModal();
   }
 
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Estás seguro?',
+      buttons: [
+        {
+          text: 'Eliminar',
+          role: 'destructive',
+          handler: () => {
+            this.deleteMedia()
+            this.closeModal();
+          },
+        },
+        {text: 'Cerrar',role: 'cancel',},
+      ],
+    });
+
+    await actionSheet.present();
+  }
 
   /*notificar(info:String){
     this.mensaje = info;

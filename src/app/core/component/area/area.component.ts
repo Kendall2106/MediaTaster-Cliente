@@ -17,8 +17,8 @@ export class AreaComponent {
   constructor() {}
 
 
-  view(datos: any[]) {
+  /*view(datos: any[]) {
     this.data = datos;
     console.log(this.data);
-  }
+  }*/
 }

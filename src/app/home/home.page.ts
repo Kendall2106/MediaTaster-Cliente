@@ -28,6 +28,7 @@ export class HomePage implements OnInit{
   regNum: number = 0;
   typeM: number = 0;
   defaultValue: String = 'Todos';
+  typeName: String = "";
   prevYear: number = 0;
   miSelectValue: String = this.defaultValue;
   miSelectValue2: String = this.defaultValue;
@@ -39,12 +40,13 @@ export class HomePage implements OnInit{
 
   ngOnInit() {
     this.clear();
-    /*this.loadMedia();*/
+    this.loadMedia();
     this.loadTypeMedia();
   }
 
 
   loadMovie(){
+    this.clear();
     this.movieService.loadMovie().subscribe((res: any) => {
       this.dateChange(res);
       this.data = res;
@@ -54,6 +56,7 @@ export class HomePage implements OnInit{
   }
 
   loadMedia(){
+    this.clear();
     this.movieService.loadMedia().subscribe((res: any) => {
       this.dateChange(res);
       this.data = res;
@@ -65,6 +68,7 @@ export class HomePage implements OnInit{
   
 
   loadBook(){
+    this.clear();
     this.bookService.loadBook().subscribe((res: any) => {
       this.dateChange(res);
       this.data=res;
@@ -74,6 +78,7 @@ export class HomePage implements OnInit{
   }
 
   loadGame(){
+    this.clear();
     this.gameService.loadGame().subscribe((res: any) => {
       this.dateChange(res);
       this.data=res;
@@ -84,6 +89,7 @@ export class HomePage implements OnInit{
 
 
   loadAnime(){
+    this.clear();
     this.animeService.loadAnime().subscribe((res: any) => {
       this.dateChange(res);
       this.data=res;
@@ -93,6 +99,7 @@ export class HomePage implements OnInit{
   }
 
   loadSerie(){
+    this.clear();
     this.serieService.loadSeries().subscribe((res: any) => {
       this.dateChange(res);
       this.data=res;
@@ -102,10 +109,12 @@ export class HomePage implements OnInit{
   }
 
   loadTypeMedia(){
-    this.movieService.loadTypeMedia().subscribe((res: any) => {
+     this.movieService.loadTypeMedia().subscribe((res: any) => {
       //this.dateChange(res);
       this.type = res;
+      
     });
+    return this.type;
   }
 
   dateChange(res:any){
@@ -116,41 +125,31 @@ export class HomePage implements OnInit{
   }
 
   refrescar(){
-    this.ngOnInit();
-  }
-
-  segmentChanged(event: any) {
-    const selectedValue = event.detail.value;
-    this.selectedSegment = selectedValue;
-    switch (selectedValue) {
-      case 'all':
-        this.clear();
-       /* this.loadMedia();*/
-        break;
+    //console.log(this.selectedSegment);
+    switch (this.selectedSegment) {
       case 'peliculas':
-        this.clear();
         this.loadMovie();
         break;
       case 'series':
-        this.clear();
         this.loadSerie();
         break;
       case 'anime':
-        this.clear();
         this.loadAnime();
         break;
       case 'juegos':
-        this.clear();
         this.loadGame();
         break;
       case 'libros':
-        this.clear();
         this.loadBook();
         break;
       default:
         break;
     }
-    
+  }
+
+  segmentChanged(event: any) {
+    const selectedValue = event.detail.value;
+    this.selectedSegment = selectedValue;
   }
 
   sacarAnio(dataYear: any){
@@ -177,7 +176,7 @@ export class HomePage implements OnInit{
 
 
 
-  async presentAlert(data: any, select:any) {
+   async presentAlert(data: any, select:any) {
     let men = '';
     if(select=='series' || select == 'anime'){
        men = 'Temporadas: '+data.Temp;
@@ -210,8 +209,16 @@ export class HomePage implements OnInit{
       },
       mode: 'ios'
     });
+
+    modal.onDidDismiss().then(() => {
+      // Se ejecuta después de que el modal se haya cerrado
+      this.refrescar();
+    });
+
     modal.style.cssText = '--max-width: 80%; --height:40%';
-    await modal.present();
+    modal.present();
+
+   // this.refrescar();
   }
 
   
@@ -219,6 +226,10 @@ export class HomePage implements OnInit{
     console.log("abrirModal");
     const modal = await this.modalController.create({
       component: ModalComponent,
+    });
+    modal.onDidDismiss().then(() => {
+      // Se ejecuta después de que el modal se haya cerrado
+      this.refrescar();
     });
     await modal.present();
   }
@@ -281,12 +292,52 @@ export class HomePage implements OnInit{
       this.results =this.data;
     }else{
     this.results = this.results.filter((d) => { 
-      const dateAsString = new Date(d.date).getFullYear().toString().toLowerCase();
-      return dateAsString.indexOf(query) > -1;
+      var parts = d.date.split("/");
+      var year = parseInt(parts[2], 10);
+      /*const anio = new Date(d.date).getFullYear();
+      */console.log(year);
+      const dateAsString = year.toString();
       
+      return dateAsString.toLowerCase().indexOf(query) > -1;
     });
   }
     this.regNum = this.results.length;
+  }
+
+  registerType(nombre:any){
+    this.movieService.registerType({name: nombre}).subscribe((respuesta: any) => {
+      //this.dialogoNotificacion(respuesta);
+      console.log(respuesta);
+    });
+    this.loadTypeMedia();
+  }
+
+  async mostrarAlert() {
+    const alert = await this.alertController.create({
+      header: 'Crear cuenta:',
+      inputs: [
+        {
+          name: 'nombre',
+          placeholder: 'Nombre',
+          type: 'text',
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Aceptar',
+          handler: (data) => {
+            this.registerType(data.nombre);
+           
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   restaurarSelect() {
@@ -302,6 +353,46 @@ export class HomePage implements OnInit{
     this.restaurarSelect();
     //AlertaComponent.prototype.notificar('hola');
   }
+
+
+
+
+
+
+
+
+
+  currentPage: number = 0;
+  itemsPerPage: number = 3;
+  
+  next() {
+    this.currentPage++;
+  }
+
+  // Función para retroceder a la página anterior.
+  prev() {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+    }
+  }
+
+  // Función para verificar si hay más páginas a la derecha.
+  hasNext() {
+    return (this.currentPage + 1) * this.itemsPerPage < this.results.length;
+  }
+
+  // Función para verificar si hay más páginas a la izquierda.
+  hasPrev() {
+    return this.currentPage > 0;
+  }
+
+  // Función para obtener los ítems que se mostrarán en la página actual.
+  getCurrentItems() {
+    const startIndex = this.currentPage * this.itemsPerPage;
+    return this.results.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  
 
 
 

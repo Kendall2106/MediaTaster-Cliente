@@ -46,6 +46,11 @@ import { Utils } from "../utilidades/util";
     return this.http.get<any>(this.urlModulo+'listTypeMedia/', this.httpOptions2);
   }
 
+  registerType(data: any): Observable<any[]> {
+    return this.http.post<any[]>(this.urlModulo + "registerType", Utils.getFormData(data), this.httpOptions2
+    );
+  }
+
   registerMovie(data: any): Observable<any[]> {
     return this.http.post<any[]>(this.urlModulo + "registerMovie", Utils.getFormData(data), this.httpOptions2
     );

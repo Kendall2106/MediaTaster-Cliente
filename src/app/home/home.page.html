@@ -8,27 +8,27 @@
 <section class="sectionNew">
  <ion-grid>
   <ion-segment [scrollable]="true" id="open-loading" value="all" (ionChange)="segmentChanged($event)" (click)="deleteFilter()">
-    <ion-segment-button value="all" >
+    <ion-segment-button value="all" (click)="loadMedia()">
       <ion-icon name="home"></ion-icon>
       <ion-label>Home</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="peliculas">
+    <ion-segment-button value="peliculas" (click)="loadMovie()">
       <ion-icon name="videocam-outline"></ion-icon>
       <ion-label>Peliculas</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="series">
+    <ion-segment-button value="series" (click)="loadSerie()">
       <ion-icon name="aperture-outline"></ion-icon>
       <ion-label>Series</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="anime">
+    <ion-segment-button value="anime" (click)="loadAnime()">
       <ion-icon name="ribbon-outline"></ion-icon>
       <ion-label>Anime</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="juegos">
+    <ion-segment-button value="juegos" (click)="loadGame()">
       <ion-icon name="game-controller-outline"></ion-icon>
       <ion-label>Juegos</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="libros">
+    <ion-segment-button value="libros" (click)="loadBook()">
       <ion-icon name="book-outline"></ion-icon>
       <ion-label>Libros</ion-label>
     </ion-segment-button>
@@ -53,15 +53,28 @@
      
     </ion-card> 
 
-    
-    <ion-list [inset]="true"  *ngFor="let d of results">
-      <ion-item (click)="presentAlert(d,selectedSegment)">
-        <ion-label>{{d.media_name}}<br>{{d.date}}</ion-label>
-        <ion-label slot="end">{{d.score}} <ion-icon name="star" style="color: gold;"></ion-icon></ion-label>
-        <ion-badge [ngStyle]="getBadgeColor(d.type_name)">{{d.type_name}}</ion-badge>
-      </ion-item>
-    </ion-list>
+    <div *ngIf="selectedSegment != 'all'">
+      <ion-list [inset]="true"  *ngFor="let d of results"   >
+        <ion-item (click)="presentAlert(d,selectedSegment)">
+          <ion-label>{{d.media_name}}<br>{{d.date}}</ion-label>
+          <ion-label slot="end">{{d.score}} <ion-icon name="star" style="color: gold;"></ion-icon></ion-label>
+          <ion-badge [ngStyle]="getBadgeColor(d.type_name)">{{d.type_name}}</ion-badge>
+        </ion-item>
+      </ion-list>
+    </div>
 
+    <div *ngIf="selectedSegment === 'all'">
+      <ion-list [inset]="true"  *ngFor="let item of getCurrentItems()"   >
+        <ion-item>
+          <ion-label>{{item.media_name}}</ion-label>
+          <ion-label slot="end">{{item.score}} <ion-icon name="star" style="color: gold;"></ion-icon></ion-label>
+        </ion-item>
+      </ion-list>
+      <ion-item class="botones">
+        <ion-button [disabled]="!hasPrev()" (click)="prev()">Anterior</ion-button>
+        <ion-button slot="end" [disabled]="!hasNext()" (click)="next()">Siguiente</ion-button>
+      </ion-item>
+    </div>
     
 
     <ion-fab slot="fixed" vertical="bottom" horizontal="end" (click)="abrirModal()">
@@ -69,32 +82,6 @@
         <ion-icon class="icon2" name="add"></ion-icon>
       </ion-fab-button>
     </ion-fab> 
-
-
-
-
-   <!--<ion-modal [isOpen]="isModalOpen">
-      <ng-template>
-        <ion-header>
-          <ion-toolbar>
-            <ion-title>Modal</ion-title>
-            <ion-buttons slot="end">
-              <ion-button (click)="setOpen(false)">Close</ion-button>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-header>
-        <ion-content class="ion-padding">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni illum quidem recusandae ducimus quos
-            reprehenderit. Veniam, molestias quos, dolorum consequuntur nisi deserunt omnis id illo sit cum qui. Eaque,
-            dicta.
-          </p>
-        </ion-content>
-      </ng-template>
-    </ion-modal>--> 
-
-
-
 
   </ion-content>
 
@@ -122,7 +109,7 @@
           <ion-label class="labelFiltros">Por categoria</ion-label>
           <ion-select  [(ngModel)]="miSelectValue2"  (ionChange)="filterType($event)">
             <ion-select-option value="Todos">Todos</ion-select-option>
-            <ion-select-option *ngFor="let t of type">{{t.name}}</ion-select-option>
+            <ion-select-option *ngFor="let t of loadTypeMedia()">{{t.name}}</ion-select-option>  
           </ion-select>
         </ion-item>
         <ion-item>
@@ -135,6 +122,9 @@
             <ion-select-option>4</ion-select-option>
             <ion-select-option>5</ion-select-option>
           </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-button expand="block" fill="outline" (click)="mostrarAlert()">Agregar Categorias</ion-button>
         </ion-item>
         <ion-item>
           <ion-button expand="block" fill="outline" (click)="deleteFilter()">BORRAR TODO</ion-button>
