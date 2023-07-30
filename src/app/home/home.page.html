@@ -105,13 +105,13 @@
             <ion-select-option>2024</ion-select-option>           
           </ion-select>
         </ion-item>
-        <ion-item>
+      <!--  <ion-item>
           <ion-label class="labelFiltros">Por categoria</ion-label>
           <ion-select  [(ngModel)]="miSelectValue2"  (ionChange)="filterType($event)">
             <ion-select-option value="Todos">Todos</ion-select-option>
             <ion-select-option *ngFor="let t of loadTypeMedia()">{{t.name}}</ion-select-option>  
           </ion-select>
-        </ion-item>
+        </ion-item>-->
         <ion-item>
           <ion-label class="labelFiltros">Por puntaje</ion-label>
           <ion-select  [(ngModel)]="miSelectValue3"  (ionChange)="filterScore($event)">
